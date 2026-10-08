@@ -78,8 +78,9 @@ test('light and dark modes change the actual palette and persist after reload', 
   await dark.click();
   await expect(shell).toHaveAttribute('data-theme', 'dark');
   await expect(dark).toHaveAttribute('aria-pressed', 'true');
-  const darkBackground = await shell.evaluate((element) => getComputedStyle(element).backgroundColor);
-  expect(lightBackground).not.toBe(darkBackground);
+  await expect
+    .poll(() => shell.evaluate((element) => getComputedStyle(element).backgroundColor))
+    .not.toBe(lightBackground);
   await page.reload();
   await expect(shell).toHaveAttribute('data-theme', 'dark');
   await light.click();
