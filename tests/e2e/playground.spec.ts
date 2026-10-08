@@ -117,3 +117,35 @@ test('mobile layout has no horizontal overflow', async ({ page }) => {
   }));
   expect(dimensions.content).toBeLessThanOrEqual(dimensions.viewport);
 });
+
+test('navbar uses the Interaction Lab name and a prominent original logo', async ({ page }) => {
+  await page.goto('/');
+  const brand = page.locator('.topbar .brand');
+  await expect(brand).toContainText('PFx');
+  await expect(brand).toContainText('Interaction Lab');
+  await expect(brand).not.toContainText('amd');
+  await expect(brand).toHaveAttribute('href', 'https://pfxamd.com/');
+  const logo = brand.locator('img.brand-symbol');
+  await expect(logo).toBeVisible();
+  await expect(logo).toHaveAttribute('src', /logo\\.svg$/);
+  const dimensions = await logo.boundingBox();
+  expect(dimensions).not.toBeNull();
+  expect(dimensions?.width).toBeGreaterThanOrEqual(50);
+  expect(dimensions?.height).toBeGreaterThanOrEqual(44);
+});
+
+test('compact navbar preserves lab identity, theme controls, and viewport width', async ({ page }) => {
+  for (const width of [320, 390]) {
+    await page.setViewportSize({ width, height: 760 });
+    await page.goto('/');
+    await expect(page.locator('.topbar .brand')).toContainText('Interaction Lab');
+    await expect(page.locator('.topbar img.brand-symbol')).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Light theme' })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Dark theme' })).toBeVisible();
+    const viewport = await page.evaluate(() => ({
+      width: window.innerWidth,
+      scrollWidth: document.documentElement.scrollWidth,
+    }));
+    expect(viewport.scrollWidth).toBeLessThanOrEqual(viewport.width);
+  }
+});
