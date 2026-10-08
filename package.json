@@ -1,0 +1,44 @@
+{
+  "name": "pfx-interaction-playground",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel",
+    "typecheck": "tsc -b --stopBuildOnErrors && tsc -p apps/playground/tsconfig.json --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "lint": "biome lint .",
+    "format": "biome format --write .",
+    "check:packages": "publint packages/interaction-core && publint packages/interaction-dom && publint packages/interaction-react && publint packages/interaction-testing",
+    "api:extract": "api-extractor run --local --typescript-compiler-folder ./node_modules/typescript --config packages/interaction-core/api-extractor.json",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "check": "biome check ."
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.5.15",
+    "@changesets/cli": "3.0.3",
+    "@microsoft/api-extractor": "7.59.1",
+    "@playwright/test": "1.63.0",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "6.1.1",
+    "fast-check": "4.10.2",
+    "publint": "0.3.25",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "tsdown": "0.23.0",
+    "turbo": "2.11.2",
+    "typescript": "7.0.2",
+    "vite": "8.3.2",
+    "vitest": "5.0.3"
+  },
+  "packageManager": "pnpm@12.9.1",
+  "description": "Standalone interactive browser playground for PFx Interaction Core"
+}

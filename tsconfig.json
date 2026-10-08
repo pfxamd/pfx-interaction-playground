@@ -1,0 +1,9 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./packages/interaction-core" },
+    { "path": "./packages/interaction-dom" },
+    { "path": "./packages/interaction-react" },
+    { "path": "./packages/interaction-testing" }
+  ]
+}
