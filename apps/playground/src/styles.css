@@ -147,3 +147,55 @@ button { font: inherit; }
   .topbar-repo { display:none; }
   .theme-option { min-width:55px; padding-inline:5px; }
 }
+
+/* Alpha status belongs to the app title, never the PFxamd logo asset. */
+.alpha-badge {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  align-self:center;
+  padding:7px 10px;
+  margin-left:8px;
+  border-radius:5px;
+  background:#ae1935;
+  color:#fff;
+  font:700 11px/1 'DM Mono',ui-monospace,monospace;
+  letter-spacing:.025em;
+  white-space:nowrap;
+  box-shadow:0 0 0 1px rgba(174,25,53,.20);
+}
+.alpha-badge::before {
+  content:'';
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:currentColor;
+  flex:none;
+}
+.app-shell[data-theme="dark"] .alpha-badge {
+  background:#ff727a;
+  color:#1b1012;
+  box-shadow:0 0 0 1px rgba(255,114,122,.25);
+}
+@media (max-width:520px) {
+  .brand-wordmark {
+    display:grid;
+    grid-template-columns:max-content max-content;
+    grid-template-areas:"prefix alpha" "title title";
+    align-items:center;
+    column-gap:6px;
+    row-gap:2px;
+  }
+  .brand-prefix { grid-area:prefix; }
+  .brand-title { grid-area:title; }
+  .alpha-badge {
+    grid-area:alpha;
+    margin:0;
+    padding:5px 6px;
+    gap:4px;
+    font-size:9px;
+    border-radius:4px;
+  }
+  .alpha-badge::before { width:4px;height:4px; }
+}
