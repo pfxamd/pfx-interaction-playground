@@ -66,14 +66,44 @@ test('eight interactive modules and source links are present', async ({ page }) 
   await expect(page.getByRole('link', { name: /explore source/i })).toHaveAttribute('href', /github.com\/pfxamd\/PFx-Interaction-Core/);
 });
 
-test('theme toggle switches the real application palette', async ({ page }) => {
+test('light and dark modes change the actual palette and persist after reload', async ({ page }) => {
   await page.goto('/');
   const shell = page.locator('.app-shell');
-  await expect(shell).toHaveAttribute('data-theme', 'dark');
-  await page.getByRole('button', { name: 'Switch to light mode' }).click();
+  const light = page.getByRole('button', { name: 'Light theme' });
+  const dark = page.getByRole('button', { name: 'Dark theme' });
   await expect(shell).toHaveAttribute('data-theme', 'light');
-  await page.getByRole('button', { name: 'Switch to dark mode' }).click();
+  await expect(light).toHaveAttribute('aria-pressed', 'true');
+  await expect(dark).toHaveAttribute('aria-pressed', 'false');
+  const lightBackground = await shell.evaluate((element) => getComputedStyle(element).backgroundColor);
+  await dark.click();
   await expect(shell).toHaveAttribute('data-theme', 'dark');
+  await expect(dark).toHaveAttribute('aria-pressed', 'true');
+  const darkBackground = await shell.evaluate((element) => getComputedStyle(element).backgroundColor);
+  expect(lightBackground).not.toBe(darkBackground);
+  await page.reload();
+  await expect(shell).toHaveAttribute('data-theme', 'dark');
+  await light.click();
+  await expect(shell).toHaveAttribute('data-theme', 'light');
+  await page.reload();
+  await expect(shell).toHaveAttribute('data-theme', 'light');
+});
+
+test('light and dark selectors stay visible and usable at narrow widths', async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 700 });
+  await page.goto('/');
+  const light = page.getByRole('button', { name: 'Light theme' });
+  const dark = page.getByRole('button', { name: 'Dark theme' });
+  await expect(light).toBeVisible();
+  await expect(dark).toBeVisible();
+  await dark.click();
+  await expect(dark).toHaveAttribute('aria-pressed', 'true');
+  await light.click();
+  await expect(light).toHaveAttribute('aria-pressed', 'true');
+  const dimensions = await page.evaluate(() => ({
+    content: document.documentElement.scrollWidth,
+    viewport: window.innerWidth,
+  }));
+  expect(dimensions.content).toBeLessThanOrEqual(dimensions.viewport);
 });
 
 test('mobile layout has no horizontal overflow', async ({ page }) => {
