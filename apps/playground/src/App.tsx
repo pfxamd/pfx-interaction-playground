@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   animateSpring,
   applyPrecision,
@@ -323,8 +323,33 @@ function SnapControl() {
   );
 }
 
+type Theme = 'light' | 'dark';
+const THEME_STORAGE_KEY = 'pfx-interaction-lab-theme';
+
+function readSavedTheme(): Theme {
+  if (typeof window === 'undefined') return 'light';
+  try {
+    return window.localStorage.getItem(THEME_STORAGE_KEY) === 'dark' ? 'dark' : 'light';
+  } catch {
+    return 'light';
+  }
+}
+
 export function App() {
-  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  const [theme, setTheme] = useState<Theme>(readSavedTheme);
+
+  useEffect(() => {
+    document.documentElement.style.colorScheme = theme;
+    document.querySelector('meta[name="theme-color"]')?.setAttribute(
+      'content',
+      theme === 'light' ? '#f4f5f2' : '#0b0d0e',
+    );
+    try {
+      window.localStorage.setItem(THEME_STORAGE_KEY, theme);
+    } catch {
+      // The theme still works when browser storage is unavailable.
+    }
+  }, [theme]);
 
   return (
     <div className="app-shell" data-theme={theme}>
@@ -337,11 +362,32 @@ export function App() {
           </a>
           <div className="topbar-center"><span className="topbar-square" aria-hidden="true" /> INTERACTION CORE <span className="nav-divider">/</span> PLAYGROUND</div>
           <div className="topbar-actions">
-            <button className="theme-button" type="button" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'} title="Toggle color theme">
-              <span className="theme-icon" aria-hidden="true">{theme === 'dark' ? '◐' : '◑'}</span>
-              <span>{theme === 'dark' ? 'LIGHT' : 'DARK'} MODE</span>
-            </button>
-            <a className="topbar-repo" href="https://github.com/pfxamd/PFx-Interaction-Core" target="_blank" rel="noopener noreferrer">SOURCE <span aria-hidden="true">↗</span></a>
+            <div className="theme-switcher">
+              <span className="theme-switcher-label" aria-hidden="true">DISPLAY</span>
+              <div className="theme-segments">
+                <button
+                  className="theme-option"
+                  type="button"
+                  aria-label="Light theme"
+                  aria-pressed={theme === 'light'}
+                  onClick={() => setTheme('light')}
+                >
+                  <span className="mode-glyph mode-glyph--light" aria-hidden="true" />
+                  <span>LIGHT</span>
+                </button>
+                <button
+                  className="theme-option"
+                  type="button"
+                  aria-label="Dark theme"
+                  aria-pressed={theme === 'dark'}
+                  onClick={() => setTheme('dark')}
+                >
+                  <span className="mode-glyph mode-glyph--dark" aria-hidden="true" />
+                  <span>DARK</span>
+                </button>
+              </div>
+            </div>
+            <a className="topbar-repo" aria-label="View source on GitHub" href="https://github.com/pfxamd/PFx-Interaction-Core" target="_blank" rel="noopener noreferrer"><span className="repo-text">SOURCE</span> <span aria-hidden="true">↗</span></a>
           </div>
         </nav>
         <main className="workspace">
