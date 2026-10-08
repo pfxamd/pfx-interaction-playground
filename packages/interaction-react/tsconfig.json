@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist-types",
+    "emitDeclarationOnly": true,
+    "jsx": "react-jsx",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"]
+  },
+  "references": [
+    { "path": "../interaction-core" },
+    { "path": "../interaction-dom" }
+  ],
+  "include": ["src/**/*.ts", "src/**/*.tsx"]
+}
