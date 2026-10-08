@@ -127,7 +127,7 @@ test('navbar uses the Interaction Lab name and a prominent original logo', async
   await expect(brand).toHaveAttribute('href', 'https://pfxamd.com/');
   const logo = brand.locator('img.brand-symbol');
   await expect(logo).toBeVisible();
-  await expect(logo).toHaveAttribute('src', /logo\\.svg$/);
+  await expect(logo).toHaveAttribute('src', /logo[.]svg$/);
   const dimensions = await logo.boundingBox();
   expect(dimensions).not.toBeNull();
   expect(dimensions?.width).toBeGreaterThanOrEqual(50);
