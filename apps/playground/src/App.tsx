@@ -362,7 +362,7 @@ export function App() {
           </a>
           <div className="topbar-center"><span className="topbar-square" aria-hidden="true" /> INTERACTION CORE <span className="nav-divider">/</span> PLAYGROUND</div>
           <div className="topbar-actions">
-            <div className="theme-switcher" role="group" aria-label="Color theme">
+            <div className="theme-switcher">
               <span className="theme-switcher-label" aria-hidden="true">DISPLAY</span>
               <div className="theme-segments">
                 <button
