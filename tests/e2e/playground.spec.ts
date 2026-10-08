@@ -149,3 +149,47 @@ test('compact navbar preserves lab identity, theme controls, and viewport width'
     expect(viewport.scrollWidth).toBeLessThanOrEqual(viewport.width);
   }
 });
+
+test('navbar shows the distinct Alpha 0.1 badge beside the product name in both themes', async ({ page }) => {
+  await page.goto('/');
+  const badge = page.locator('.topbar .alpha-badge');
+  await expect(badge).toBeVisible();
+  await expect(badge).toHaveText('Alpha 0.1');
+  await expect(page.locator('.topbar .brand-title')).toHaveText('Interaction Lab');
+
+  const lightColors = await badge.evaluate((element) => {
+    const css = getComputedStyle(element);
+    return { background: css.backgroundColor, foreground: css.color };
+  });
+  expect(lightColors.background).toBe('rgb(174, 25, 53)');
+  expect(lightColors.foreground).toBe('rgb(255, 255, 255)');
+
+  await page.getByRole('button', { name: 'Dark theme' }).click();
+  await expect(page.locator('.app-shell')).toHaveAttribute('data-theme', 'dark');
+  await expect.poll(() => badge.evaluate((element) => getComputedStyle(element).backgroundColor))
+    .toBe('rgb(255, 114, 122)');
+  await expect(badge).toBeVisible();
+});
+
+test('Alpha 0.1 badge stays legible without horizontal overflow on narrow devices', async ({ page }) => {
+  for (const width of [320, 390, 520, 1280]) {
+    await page.setViewportSize({ width, height: 800 });
+    await page.goto('/');
+    const badge = page.locator('.topbar .alpha-badge');
+    const title = page.locator('.topbar .brand-title');
+    await expect(badge).toBeVisible();
+    await expect(title).toBeVisible();
+    const badgeBox = await badge.boundingBox();
+    const titleBox = await title.boundingBox();
+    expect(badgeBox).not.toBeNull();
+    expect(titleBox).not.toBeNull();
+    if (width > 520 && badgeBox && titleBox) {
+      expect(badgeBox.x).toBeGreaterThan(titleBox.x + titleBox.width);
+    }
+    const dimensions = await page.evaluate(() => ({
+      page: document.documentElement.scrollWidth,
+      viewport: window.innerWidth,
+    }));
+    expect(dimensions.page).toBeLessThanOrEqual(dimensions.viewport);
+  }
+});
