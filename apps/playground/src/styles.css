@@ -15,10 +15,11 @@ button { font: inherit; }
 .skip-link { position:fixed; z-index:99; left:20px; top:-70px; background:var(--accent); color:white; padding:14px 20px; }
 .skip-link:focus { top:15px; }
 .topbar { height:82px; display:flex; align-items:center; justify-content:space-between; gap:20px; border-bottom:1px solid var(--border); }
-.brand { display:inline-flex; align-items:center; gap:10px; text-decoration:none; min-width:170px; }
-.brand-symbol { display:block; width:31px; height:29px; object-fit:contain; flex:none; }
-.brand-wordmark { font-weight:800; letter-spacing:-.075em; font-size:23px; color:var(--ink); }
-.brand-wordmark span { font-weight:500; letter-spacing:-.06em; }
+.brand { display:inline-flex; align-items:center; gap:12px; text-decoration:none; min-width:0; flex:none; }
+.brand-symbol { display:block; width:54px; height:47px; object-fit:contain; flex:none; }
+.brand-wordmark { display:inline-flex; align-items:baseline; gap:6px; font-weight:700; letter-spacing:-.055em; font-size:22px; line-height:1.13; white-space:nowrap; color:var(--ink); }
+.brand-prefix { font-weight:800; letter-spacing:-.07em; } 
+.brand-title { font-weight:600; letter-spacing:-.045em; }
 .topbar-center,.topbar-repo,.theme-switcher,.eyebrow,.hero-meta,.hero-cta,.section-overline,.section-head>p,.card-index,.card header>span,.card header>output,.card>p,.footer,.diagram-coordinate,.diagram-caption,.outro-actions { font-family:'DM Mono',ui-monospace,monospace; }
 .topbar-center { display:flex; align-items:center; gap:13px; color:var(--dim); font-size:10px; font-weight:500; letter-spacing:.09em; white-space:nowrap; }
 .topbar-square { width:7px; height:7px; border:1px solid var(--accent); transform:rotate(45deg); }
@@ -128,7 +129,7 @@ button { font: inherit; }
 .footer i { color:var(--accent);font-style:normal; font-size:12px; margin-left:4px; }
 @media(max-width:1120px) { .site-frame{width:min(100% - 56px,1392px)} .hero{gap:30px} .hero h1{font-size:clamp(56px,7.3vw,86px)} .topbar-center{display:none} }
 @media(max-width:780px) { .hero {grid-template-columns:1fr;gap:35px;padding:60px 0 45px;} .hero-diagram{margin:0;max-width:100%;height:290px;aspect-ratio:auto;} .hero h1{font-size:clamp(56px,9vw,84px)} .section-head{align-items:start;flex-direction:column;} .grid{grid-template-columns:1fr;} .card{min-height:307px;} .outro{flex-direction:column;align-items:stretch;} .outro-actions{flex-direction:row;} .outro-actions a{flex:1;} }
-@media(max-width:520px) { .site-frame{width:calc(100% - 34px);} .topbar{height:67px;} .brand{min-width:0} .brand-wordmark{font-size:20px} .brand-symbol{width:26px;height:25px} .topbar-actions{gap:10px} .topbar-repo{padding:10px 12px;gap:10px;} .theme-segments{padding:3px;gap:1px;} .theme-option{min-width:60px;min-height:34px;padding:7px 7px;gap:5px;font-size:9px;} .theme-switcher-label{display:none} .topbar-repo{min-width:38px;justify-content:center;} .repo-text{display:none} .hero{padding:46px 0 40px;} .hero h1{font-size:clamp(47px,13vw,69px);margin:22px 0;} .hero-subtitle{font-size:14px;line-height:1.75;} .hero-meta{gap:10px 17px;} .hero-diagram{height:225px;} .diagram-coordinate,.diagram-caption{font-size:8px} .lab-area{padding-top:42px;} .section-head h2{font-size:31px;} .card{padding:23px 19px 19px;min-height:303px;} .card h2{font-size:21px;} .card-index{font-size:9px;} .card header>span,.card header>output{font-size:9px;} .xy-pad{height:160px;} .outro{margin:65px 0 30px;} .outro h2{font-size:43px;} .outro-actions{flex-direction:column;} .footer{gap:17px;} }
+@media(max-width:520px) { .site-frame{width:calc(100% - 34px);} .topbar{height:71px;gap:8px;} .brand{gap:7px;min-width:0} .brand-wordmark{font-size:13px;display:flex;flex-direction:column;align-items:flex-start;gap:1px;letter-spacing:-.035em;} .brand-symbol{width:43px;height:40px} .topbar-actions{gap:10px} .topbar-repo{padding:10px 12px;gap:10px;} .theme-segments{padding:3px;gap:1px;} .theme-option{min-width:60px;min-height:34px;padding:7px 7px;gap:5px;font-size:9px;} .theme-switcher-label{display:none} .topbar-repo{min-width:38px;justify-content:center;} .repo-text{display:none} .hero{padding:46px 0 40px;} .hero h1{font-size:clamp(47px,13vw,69px);margin:22px 0;} .hero-subtitle{font-size:14px;line-height:1.75;} .hero-meta{gap:10px 17px;} .hero-diagram{height:225px;} .diagram-coordinate,.diagram-caption{font-size:8px} .lab-area{padding-top:42px;} .section-head h2{font-size:31px;} .card{padding:23px 19px 19px;min-height:303px;} .card h2{font-size:21px;} .card-index{font-size:9px;} .card header>span,.card header>output{font-size:9px;} .xy-pad{height:160px;} .outro{margin:65px 0 30px;} .outro h2{font-size:43px;} .outro-actions{flex-direction:column;} .footer{gap:17px;} }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto} .app-shell,.card,.hero-cta,.topbar-repo,.card::after{transition:none} }
 
 @media (max-width:1120px) {
@@ -139,4 +140,10 @@ button { font: inherit; }
 }
 @media (prefers-reduced-motion:reduce) {
   .theme-option { transition:none; }
+}
+
+/* Keep the full lab identity readable on compact devices without crowding the theme switch. */
+@media (max-width:370px) {
+  .topbar-repo { display:none; }
+  .theme-option { min-width:55px; padding-inline:5px; }
 }
