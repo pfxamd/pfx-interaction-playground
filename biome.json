@@ -10,7 +10,8 @@
       "!!**/test-results",
       "!!**/.turbo",
       "!!**/.vite",
-      "!!**/temp"
+      "!!**/temp",
+      "!!apps/playground/public/logo.svg"
     ]
   },
   "formatter": {
