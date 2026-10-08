@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "useUnknownInCatchVariables": true,
+    "verbatimModuleSyntax": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "composite": true,
+    "paths": {
+      "@pfx/interaction-core": [
+        "./packages/interaction-core/src/index.ts"
+      ],
+      "@pfx/interaction-dom": [
+        "./packages/interaction-dom/src/index.ts"
+      ],
+      "@pfx/interaction-react": [
+        "./packages/interaction-react/src/index.ts"
+      ],
+      "@pfx/interaction-testing": [
+        "./packages/interaction-testing/src/index.ts"
+      ]
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "name": "@pfx/interaction-react",
+  "version": "0.1.0",
+  "type": "module",
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "NOTICE"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.mts",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "scripts": {
+    "build": "tsdown",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@pfx/interaction-core": "workspace:*",
+    "@pfx/interaction-dom": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": ">=18 <20"
+  },
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pfxamd/PFx-Interaction-Core.git",
+    "directory": "packages/interaction-react"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
