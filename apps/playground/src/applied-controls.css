@@ -1,0 +1,216 @@
+.applied-stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 240px;
+  margin: 18px 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--stage);
+  overflow: hidden;
+}
+.demo-window {
+  width: min(280px, calc(100% - 24px));
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  box-shadow: 0 8px 20px color-mix(in srgb, var(--ink) 10%, transparent);
+  overflow: hidden;
+}
+.window-handle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  min-height: 44px;
+  background: var(--raised);
+  border-bottom: 1px solid var(--border);
+  font-size: 11px;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+.window-handle:focus-visible {
+  outline-offset: -3px;
+}
+.window-dots {
+  font-size: 8px;
+  letter-spacing: 2px;
+  color: var(--accent);
+}
+.window-content {
+  padding: 16px;
+}
+.window-content strong {
+  font-size: 13px;
+}
+.window-content p {
+  margin: 7px 0 12px;
+  font-size: 11px;
+  color: var(--muted);
+}
+.window-content label {
+  display: grid;
+  gap: 5px;
+  font-size: 10px;
+  color: var(--dim);
+}
+.window-content input {
+  width: 100%;
+  min-width: 0;
+  padding: 7px 8px;
+  background: var(--stage);
+  color: var(--ink);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font:
+    11px / 1.5 "Manrope",
+    sans-serif;
+}
+.resizable-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+  width: 220px;
+  height: 130px;
+  max-width: calc(100% - 24px);
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  padding: 20px;
+  background: var(--surface);
+}
+.resize-card-kicker {
+  font:
+    10px / 1 "DM Mono",
+    monospace;
+  letter-spacing: 0.06em;
+  color: var(--accent-ink);
+}
+.resizable-card strong {
+  font-size: 14px;
+  max-width: 220px;
+  line-height: 1.4;
+}
+.resize-card-line {
+  height: 3px;
+  width: 70%;
+  background: var(--border);
+  border-radius: 3px;
+}
+.resize-handle {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--accent);
+  background: var(--surface);
+  border-radius: 3px;
+  touch-action: none;
+}
+.resize-handle::after {
+  content: "";
+  position: absolute;
+  inset: -14px;
+}
+.resize-handle--tl {
+  top: -8px;
+  left: -8px;
+  cursor: nwse-resize;
+}
+.resize-handle--tr {
+  top: -8px;
+  right: -8px;
+  cursor: nesw-resize;
+}
+.resize-handle--bl {
+  bottom: -8px;
+  left: -8px;
+  cursor: nesw-resize;
+}
+.resize-handle--br {
+  bottom: -8px;
+  right: -8px;
+  cursor: nwse-resize;
+}
+.resize-handle[data-active="true"] {
+  background: var(--accent);
+}
+.image-frame {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 240px;
+  margin: 18px 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  touch-action: none;
+  cursor: grab;
+  user-select: none;
+}
+.pan-image {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 150%;
+  height: 150%;
+  background: repeating-linear-gradient(135deg, var(--raised) 0 28px, var(--stage) 28px 56px);
+  will-change: transform;
+}
+.pan-image img {
+  width: 190px;
+  height: 165px;
+  object-fit: contain;
+  pointer-events: none;
+}
+.crop-guides {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border: 10px solid color-mix(in srgb, var(--ink) 8%, transparent);
+  background:
+    linear-gradient(
+      90deg,
+      transparent 33.1%,
+      var(--border) 33.2% 33.4%,
+      transparent 33.5% 66.4%,
+      var(--border) 66.5% 66.7%,
+      transparent 66.8%
+    ),
+    linear-gradient(
+      transparent 33.1%,
+      var(--border) 33.2% 33.4%,
+      transparent 33.5% 66.4%,
+      var(--border) 66.5% 66.7%,
+      transparent 66.8%
+    );
+}
+.crop-caption {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  pointer-events: none;
+  font:
+    9px / 1.4 "DM Mono",
+    monospace;
+  color: var(--muted);
+  background: var(--surface);
+  padding: 5px 7px;
+  border-radius: 3px;
+}
+.window-handle[data-active="true"],
+.image-frame[data-active="true"] {
+  cursor: grabbing;
+}
+.applied-grid {
+  margin-top: 20px;
+}
+.applied-grid .card-image {
+  grid-column: 1 / -1;
+}
+@media (max-width: 780px) {
+  .applied-grid .card-image {
+    grid-column: auto;
+  }
+}

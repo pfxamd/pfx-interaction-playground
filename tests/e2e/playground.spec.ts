@@ -55,11 +55,11 @@ test('Escape cancels pointer drag without applying further movement', async ({ p
   expect(await slider.getAttribute('aria-valuenow')).toBe(beforeEscape);
 });
 
-test('eight interactive modules and source links are present', async ({ page }) => {
+test('eleven interactive modules and source links are present', async ({ page }) => {
   await page.goto('/');
   for (const name of [
     'Axis + Precision', 'Vertical Axis', 'XY Control', 'Rotary + Detents',
-    'Free Drag', 'Spring Return', 'Snap Points', 'Input Probe',
+    'Free Drag', 'Spring Return', 'Snap Points', 'Input Probe', 'Window Drag', 'Resize Card', 'Image Pan',
   ]) {
     await expect(page.getByRole('heading', { name })).toBeVisible();
   }

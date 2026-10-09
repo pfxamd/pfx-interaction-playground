@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { ImagePan, ResizeCard, WindowDrag } from './components/AppliedControls';
 import {
   DragControl,
   InputProbe,
@@ -117,7 +118,7 @@ export function App() {
               </p>
               <div className="hero-meta">
                 <span>
-                  <strong>08</strong> LIVE MODULES
+                  <strong>11</strong> LIVE MODULES
                 </span>
                 <span>POINTER + KEYBOARD</span>
                 <span>ENGINE v0.1.0</span>
@@ -136,7 +137,7 @@ export function App() {
                   Test the mechanics<span aria-hidden="true">↘</span>
                 </h2>
               </div>
-              <p>Eight experiments. Live values. Pointer and keyboard control.</p>
+              <p>Eleven experiments. Live values. Pointer and keyboard control.</p>
             </div>
             <div className="grid">
               <ScalarControl />
@@ -147,6 +148,11 @@ export function App() {
               <DragControl spring />
               <ScalarControl snap />
               <InputProbe />
+            </div>
+            <div className="grid applied-grid">
+              <WindowDrag />
+              <ResizeCard />
+              <ImagePan />
             </div>
           </section>
           <section className="outro" aria-label="Explore the source">
@@ -181,7 +187,9 @@ export function App() {
           </section>
         </main>
         <footer className="footer">
-          <span>Built by <a href="https://pfxamd.com/">PFxamd</a></span>
+          <span>
+            Built by <a href="https://pfxamd.com/">PFxamd</a>
+          </span>
           <div className="footer-inputs">
             <span>MOUSE</span>
             <span>TOUCH</span>
