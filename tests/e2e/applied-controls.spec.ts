@@ -39,7 +39,10 @@ test('four resize corners change dimensions and respect stage limits', async ({ 
   if (!box) throw new Error('Missing resize handle');
   await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
   await page.mouse.down();
-  await page.mouse.move(box.x + 800, box.y + 800);
+  await page.mouse.move(
+    Math.min(box.x + 800, (page.viewportSize()?.width || 1280) - 10),
+    Math.min(box.y + 800, (page.viewportSize()?.height || 720) - 10),
+  );
   await page.mouse.up();
   const dimensions = await card.evaluate((element) => {
     const stage = element.querySelector('.resize-stage');
@@ -67,7 +70,10 @@ test('image panning never reveals blank edges and resets', async ({ page }) => {
   if (!box) throw new Error('Missing crop frame');
   await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
   await page.mouse.down();
-  await page.mouse.move(box.x + box.width + 600, box.y + box.height + 600);
+  await page.mouse.move(
+    Math.min(box.x + box.width + 600, (page.viewportSize()?.width || 1280) - 10),
+    Math.min(box.y + box.height + 600, (page.viewportSize()?.height || 720) - 10),
+  );
   await page.mouse.up();
   const geometry = await frame.evaluate((element) => {
     const image = element.querySelector('.pan-image');

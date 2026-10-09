@@ -1,6 +1,28 @@
 import { clamp } from '@pfx/interaction-core';
-import { useDrag, useKeyboardSensor } from '@pfx/interaction-react';
-import { useRef } from 'react';
+import { type UseDragOptions, useDrag, useKeyboardSensor } from '@pfx/interaction-react';
+import { type RefObject, useRef } from 'react';
+
+// Recover mouse capture if a release occurred outside the browser viewport.
+function useSafeDrag(ref: RefObject<HTMLDivElement | null>, options: UseDragOptions) {
+  useDrag(ref, {
+    ...options,
+    onChange(snapshot, event) {
+      if (
+        event instanceof PointerEvent &&
+        event.type === 'pointermove' &&
+        event.pointerType === 'mouse' &&
+        event.buttons === 0 &&
+        snapshot.isActive
+      ) {
+        if (ref.current?.hasPointerCapture(event.pointerId)) {
+          ref.current.releasePointerCapture(event.pointerId);
+        }
+        return;
+      }
+      options.onChange(snapshot, event);
+    },
+  });
+}
 
 const keys = ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home'];
 function Reset({ label, reset }: { label: string; reset: () => void }) {
@@ -33,7 +55,7 @@ export function WindowDrag() {
     if (outputRef.current)
       outputRef.current.value = `X ${Math.round(point.x)} / Y ${Math.round(point.y)} px`;
   };
-  useDrag(titleRef, {
+  useSafeDrag(titleRef, {
     preventDefault: true,
     onChange(snapshot) {
       if (titleRef.current) titleRef.current.dataset.active = String(snapshot.isActive);
@@ -127,7 +149,7 @@ export function ResizeCard() {
       );
   };
   function useCorner(ref: typeof topLeftRef, xSign: number, ySign: number) {
-    useDrag(ref, {
+    useSafeDrag(ref, {
       preventDefault: true,
       onChange(snapshot) {
         if (ref.current) ref.current.dataset.active = String(snapshot.isActive);
@@ -220,7 +242,7 @@ export function ImagePan() {
     if (outputRef.current)
       outputRef.current.value = `X ${Math.round(point.x)} / Y ${Math.round(point.y)} px`;
   };
-  useDrag(frameRef, {
+  useSafeDrag(frameRef, {
     preventDefault: true,
     onChange(snapshot) {
       if (frameRef.current) frameRef.current.dataset.active = String(snapshot.isActive);
