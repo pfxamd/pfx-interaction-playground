@@ -43,8 +43,8 @@ export function App() {
         <nav className="topbar" aria-label="Site navigation">
           <a
             className="brand"
-            href="https://pfxamd.com/"
-            aria-label="PFx Interaction Lab — PFxamd studio"
+            href={import.meta.env.BASE_URL}
+            aria-label="PFx Interaction Lab home"
           >
             <img className="brand-symbol" src={`${import.meta.env.BASE_URL}logo.svg`} alt="" />
             <span className="brand-wordmark">
@@ -181,7 +181,7 @@ export function App() {
           </section>
         </main>
         <footer className="footer">
-          <span>© PFxamd / INTERACTION CORE</span>
+          <span>Built by <a href="https://pfxamd.com/">PFxamd</a></span>
           <div className="footer-inputs">
             <span>MOUSE</span>
             <span>TOUCH</span>

@@ -124,7 +124,7 @@ test('navbar uses the Interaction Lab name and a prominent original logo', async
   await expect(brand).toContainText('PFx');
   await expect(brand).toContainText('Interaction Lab');
   await expect(brand).not.toContainText('amd');
-  await expect(brand).toHaveAttribute('href', 'https://pfxamd.com/');
+  await expect(brand).toHaveAttribute('href', /^\/(?:pfx-interaction-playground\/)?$/);
   const logo = brand.locator('img.brand-symbol');
   await expect(logo).toBeVisible();
   await expect(logo).toHaveAttribute('src', /logo[.]svg$/);
