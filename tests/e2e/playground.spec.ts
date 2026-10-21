@@ -1,3 +1,4 @@
+import { resolveRelease } from "../../scripts/pfx-release.mjs";
 import { expect, test } from '@playwright/test';
 
 test('playground exposes the interaction lab', async ({ page }) => {
@@ -150,11 +151,11 @@ test('compact navbar preserves lab identity, theme controls, and viewport width'
   }
 });
 
-test('navbar shows the distinct Alpha 0.1 badge beside the product name in both themes', async ({ page }) => {
+test('navbar shows the distinct automatic Alpha badge beside the product name in both themes', async ({ page }) => {
   await page.goto('/');
   const badge = page.locator('.topbar .alpha-badge');
   await expect(badge).toBeVisible();
-  await expect(badge).toHaveText('Alpha 0.1');
+  await expect(badge).toHaveText(resolveRelease().label);
   await expect(page.locator('.topbar .brand-title')).toHaveText('Interaction Lab');
 
   const lightColors = await badge.evaluate((element) => {
@@ -171,7 +172,7 @@ test('navbar shows the distinct Alpha 0.1 badge beside the product name in both 
   await expect(badge).toBeVisible();
 });
 
-test('Alpha 0.1 badge stays legible without horizontal overflow on narrow devices', async ({ page }) => {
+test('automatic Alpha badge stays legible without horizontal overflow on narrow devices', async ({ page }) => {
   for (const width of [320, 390, 520, 1280]) {
     await page.setViewportSize({ width, height: 800 });
     await page.goto('/');
