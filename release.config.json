@@ -1,0 +1,24 @@
+{
+  "product": "PFx Interaction Playground",
+  "channel": "Alpha",
+  "baseline": "1b37b4789cbb5e62b78f1d54b25a24da65eaa8fd",
+  "baseVersion": "0.1.0",
+  "sourcePaths": [
+    "src",
+    "app",
+    "apps",
+    "public",
+    "assets",
+    "index.html",
+    "diagnostics",
+    "scripts",
+    "release.config.json",
+    "vite.config.ts",
+    "vite.config.js",
+    "package.json",
+    "package-lock.json",
+    "pnpm-lock.yaml",
+    ".github/workflows",
+    "packages"
+  ]
+}

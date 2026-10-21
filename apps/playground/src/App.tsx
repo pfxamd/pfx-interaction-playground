@@ -1,3 +1,5 @@
+declare const __PFX_APP_RELEASE__: { version: string; channel: string; label: string; commit: string };
+
 import { useEffect, useState } from 'react';
 import { ImagePan, ResizeCard, WindowDrag } from './components/AppliedControls';
 import {
@@ -51,7 +53,7 @@ export function App() {
             <span className="brand-wordmark">
               <span className="brand-prefix">PFx</span>
               <span className="brand-title">Interaction Lab</span>
-              <span className="alpha-badge">Alpha 0.1</span>
+              <span className="alpha-badge">{__PFX_APP_RELEASE__.label}</span>
             </span>
           </a>
           <div className="topbar-center">
